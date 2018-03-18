@@ -1,5 +1,19 @@
 var ObjectID = require('mongodb').ObjectId
 module.exports = function (app, db) {
+    app.get('/notes', (req, res) => {        
+        // const note = { title: req.body.title, content: req.body.content };
+       
+        db.collection('notes').find().toArray(function(err, results) {
+            if (err){
+                res.send({'err': err})
+            }
+            else{
+                res.send(results)
+            }
+        });
+    });
+    ////
+
     app.post('/notes', (req, res) => {        
         const note = { title: req.body.title, content: req.body.content };
         console.log(note);
